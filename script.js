@@ -1,5 +1,5 @@
 //get the player selection of rock, paper, or scissors and log it to the console
-  let playerSelection = prompt("Time to play Rock, Paper, Scissors! Do you throw rock, paper, or scissors?").toLowerCase();
+  const playerSelection = prompt("Time to play Rock, Paper, Scissors! Do you throw rock, paper, or scissors?").toLowerCase();
   console.log(`You chose ${playerSelection}`);
 
 //randomly return either rock, paper, or scissors for the "computer" opponent
@@ -13,8 +13,8 @@ getComputerSelection = () => {
   let randRockPaperScissors = arrRockPaperScissors[Math.floor(Math.random()*arrRockPaperScissors.length)];
   return randRockPaperScissors;
 }
-//the "computer" is assigned the random rock paper scissors value through computerSelection const, which is then logged to the console
-let computerSelection = getComputerSelection();
+//the "computer" is assigned the random rock paper scissors value through computerSelection, which is then logged to the console
+const computerSelection = getComputerSelection();
 console.log(`The computer chose ${computerSelection}`);
 
 
