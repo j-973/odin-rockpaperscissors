@@ -1,31 +1,29 @@
 //get the player selection of rock, paper, or scissors and log it to the console
-  const playerSelection = prompt("Time to play Rock, Paper, Scissors! Do you throw rock, paper, or scissors?").toLowerCase();
-  console.log(`You chose ${playerSelection}`);
+getPlayerSelection = () => {
+    const playerSelection =  prompt("Time to play Rock, Paper, Scissors! Do you throw rock, paper, or scissors?").toLowerCase(); 
+    return playerSelection;
+}
 
 //randomly return either rock, paper, or scissors for the "computer" opponent
 getComputerSelection = () => {
-  const arrRockPaperScissors = [
-      "rock",
-      "paper",
-      "scissors"
-  ];
-  //randomizing a selection of rock, paper or scissors from our array using Math.random, and placing that selection in a variable
-  let randRockPaperScissors = arrRockPaperScissors[Math.floor(Math.random()*arrRockPaperScissors.length)];
-  return randRockPaperScissors;
+const arrRockPaperScissors = [
+  "rock",
+  "paper",
+  "scissors"
+];
+//randomizing a selection of rock, paper or scissors from our array using Math.random, and placing that selection in a variable
+let randRockPaperScissors = arrRockPaperScissors[Math.floor(Math.random()*arrRockPaperScissors.length)];
+return randRockPaperScissors;
 }
-//the "computer" is assigned the random rock paper scissors value through computerSelection, which is then logged to the console
-const computerSelection = getComputerSelection();
-console.log(`The computer chose ${computerSelection}`);
 
-
-
+//determine the winner by comparing the player's selection with the computer's selection and return the 
 playRound = (playerSelection, computerSelection) => {
-    //stores the results message to be returned by the function
+    //gives a message of the results for each round
     roundResult = null;
 
     //draw
     if (playerSelection === computerSelection) {
-        roundResult = "It's a draw.";
+        roundResult = `It's a draw.`;
         return roundResult;
     }
     //player selects rock
@@ -57,4 +55,19 @@ playRound = (playerSelection, computerSelection) => {
     }
 }
 
-console.log(playRound(playerSelection, computerSelection));
+game = () => {
+    //calls playRound 5 times for an 5 round game
+    for (let roundCounter = 0; roundCounter < 5; roundCounter++) {
+        playerSelection = getPlayerSelection();
+        console.log(`You chose ${playerSelection}`);
+
+        //the "computer" is assigned the random rock paper scissors value through computerSelection, which is then logged to the console
+        computerSelection = getComputerSelection();
+        console.log(`The computer chose ${computerSelection}`);
+
+        console.log(playRound(playerSelection, computerSelection));
+    }
+}
+
+//actually calling the game function so the game runs
+game();
