@@ -27,37 +27,44 @@ playRound = (playerSelection, computerSelection) => {
         return roundResult;
     }
     //player selects rock
-    if (playerSelection === "rock" && computerSelection === "paper") {
+    else if (playerSelection === "rock" && computerSelection === "paper") {
         roundResult = `You lose this round! ${computerSelection} beats ${playerSelection}.`;
         return roundResult;
     }
-    if (playerSelection === "rock" && computerSelection === "scissors") {
+    else if (playerSelection === "rock" && computerSelection === "scissors") {
         roundResult = `You win this round! ${playerSelection} beats ${computerSelection}.`;
         return roundResult;
     }
     //player selects paper
-    if (playerSelection === "paper" && computerSelection === "rock") {
+    else if (playerSelection === "paper" && computerSelection === "rock") {
         roundResult = `You win this round! ${playerSelection} beats ${computerSelection}.`;
         return roundResult;
     }
-    if (playerSelection === "paper" && computerSelection === "scissors") {
+    else if (playerSelection === "paper" && computerSelection === "scissors") {
         roundResult = `You lose this round! ${computerSelection} beats ${playerSelection}.`;
         return roundResult;
     }
     //player selects scissors
-    if (playerSelection === "scissors" && computerSelection === "rock") {
+    else if (playerSelection === "scissors" && computerSelection === "rock") {
         roundResult = `You lose this round! ${computerSelection} beats ${playerSelection}.`;
         return roundResult;
     }
-    if (playerSelection === "scissors" && computerSelection === "paper") {
+    else if (playerSelection === "scissors" && computerSelection === "paper") {
         roundResult = `You win this round! ${playerSelection} beats ${computerSelection}.`;
         return roundResult;
     }
 }
 
 game = () => {
-    //calls playRound 5 times for an 5 round game
-    for (let roundCounter = 0; roundCounter < 5; roundCounter++) {
+    //score variables declared outside the for loop so they can continue to increment with each round
+    let playerScore = 0;
+    let computerScore = 0;
+    let gameWinner = null;
+
+    //calls playRound 5 times for a 5 round game.
+    for (let roundCounter = 1; roundCounter < 6; roundCounter++) {
+        console.log(`-- ROUND #${roundCounter} --`)
+
         playerSelection = getPlayerSelection();
         console.log(`You chose ${playerSelection}`);
 
@@ -66,8 +73,32 @@ game = () => {
         console.log(`The computer chose ${computerSelection}`);
 
         console.log(playRound(playerSelection, computerSelection));
-    }
-}
 
+        //determining player or computer points for each round, based on what text the roundResult contains via include() method
+        if (roundResult.includes("win")) {
+            ++playerScore;
+        } else if (roundResult.includes("lose")) {
+            ++computerScore;
+        } else {
+            playerScore, computerScore += 0;
+        }
+        //score is logged to the console after points logic applied for each round
+        let scoreTally = `ROUND #${roundCounter} SCORE: PLAYER = ${playerScore} point(s) -- COMPUTER = ${computerScore} point(s)`;
+        console.log(scoreTally);
+    
+    }
+
+    //after all the rock paper scissors rounds have finished, determine game winner, and log final score to console
+    let finalScoreTally = `PLAYER = ${playerScore} point(s) -- COMPUTER = ${computerScore} point(s)`;
+
+    if (playerScore === computerScore) {
+        console.log(`Game is a draw...\n -- FINAL SCORE -- \n${finalScoreTally}.`);
+    }
+    else if (playerScore > computerScore) {
+        gameWinner = console.log(`Player wins the game!\n FINAL SCORE: \n${finalScoreTally}!`)
+    } else if (playerScore < computerScore) {
+        gameWinner = console.log(`Computer wins the game!\n FINAL SCORE: \n${finalScoreTally}!`)
+    }   
+}
 //actually calling the game function so the game runs
 game();
