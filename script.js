@@ -59,6 +59,7 @@ game = () => {
     //score variables declared outside the for loop so they can continue to increment with each round
     let playerScore = 0;
     let computerScore = 0;
+    let roundDraws = 0;
     let gameWinner = null;
 
     //calls playRound 5 times for a 5 round game.
@@ -79,8 +80,8 @@ game = () => {
             ++playerScore;
         } else if (roundResult.includes("lose")) {
             ++computerScore;
-        } else {
-            playerScore, computerScore += 0;
+        } else if (roundResult.includes("draw")) {
+            ++roundDraws;
         }
         //score is logged to the console after points logic applied for each round
         let scoreTally = `ROUND #${roundCounter} SCORE: PLAYER = ${playerScore} point(s) -- COMPUTER = ${computerScore} point(s)`;
@@ -89,7 +90,7 @@ game = () => {
     }
 
     //after all the rock paper scissors rounds have finished, determine game winner, and log final score to console
-    let finalScoreTally = `PLAYER = ${playerScore} point(s) -- COMPUTER = ${computerScore} point(s)`;
+    let finalScoreTally = `PLAYER = ${playerScore} point(s) -- COMPUTER = ${computerScore} point(s)\nDRAWS = ${roundDraws}`;
 
     if (playerScore === computerScore) {
         console.log(`Game is a draw...\n -- FINAL SCORE -- \n${finalScoreTally}.`);
