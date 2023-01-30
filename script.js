@@ -84,7 +84,9 @@ game = () => {
             ++roundDraws;
         }
         //score is logged to the console after points logic applied for each round
-        let scoreTally = `ROUND #${roundCounter} SCORE: PLAYER = ${playerScore} point(s) -- COMPUTER = ${computerScore} point(s)`;
+        let scoreTally = `ROUND #${roundCounter} SCORE: PLAYER = ${playerScore} point(s) -- COMPUTER = ${computerScore} point(s)
+                        \nDRAWS = ${roundDraws}
+                        \n--------------`;
         console.log(scoreTally);
     
     }
@@ -96,9 +98,9 @@ game = () => {
         console.log(`Game is a draw...\n -- FINAL SCORE -- \n${finalScoreTally}.`);
     }
     else if (playerScore > computerScore) {
-        gameWinner = console.log(`Player wins the game!\n FINAL SCORE: \n${finalScoreTally}!`)
+        gameWinner = console.log(`Player wins the game!\n FINAL SCORE: \n${finalScoreTally}`)
     } else if (playerScore < computerScore) {
-        gameWinner = console.log(`Computer wins the game!\n FINAL SCORE: \n${finalScoreTally}!`)
+        gameWinner = console.log(`Computer wins the game!\n FINAL SCORE: \n${finalScoreTally}`)
     }   
 }
 //actually calling the game function so the game runs
