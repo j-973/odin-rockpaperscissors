@@ -1,24 +1,38 @@
-//get the player selection of rock, paper, or scissors and log it to the console
+const arrRockPaperScissors = [
+    "rock",
+    "paper",
+    "scissors"
+  ];
+
+//player and computer rock-paper-scissors selection
 getPlayerSelection = () => {
-    const playerSelection =  prompt("Time to play Rock, Paper, Scissors! Do you throw rock, paper, or scissors?").toLowerCase(); 
-    return playerSelection;
+    playerInputValid = false;
+    while (playerInputValid == false) {
+            let playerSelection =  prompt("Time to play Rock, Paper, Scissors! Do you throw rock, paper, or scissors?");
+            if (playerSelection == null) {
+                //restarts the loop to prompt player again
+                continue;
+            } 
+            //converts any player input to lowercase so rock-paper-scissors can match the possible otpions and become valid 
+            playerSelection = playerSelection.toLowerCase();
+
+            if (playerSelection == arrRockPaperScissors[0] || playerSelection == arrRockPaperScissors[1] || playerSelection == arrRockPaperScissors[2]) {
+                playerInputValid = true;
+                if (playerInputValid == true) {
+                    return playerSelection;
+                }
+            } 
+        }
 }
 
-//randomly return either rock, paper, or scissors for the "computer" opponent
 getComputerSelection = () => {
-const arrRockPaperScissors = [
-  "rock",
-  "paper",
-  "scissors"
-];
-//randomizing a selection of rock, paper or scissors from our array using Math.random, and placing that selection in a variable
+//randomly selects an index value arrRockPaperScissors
 let randRockPaperScissors = arrRockPaperScissors[Math.floor(Math.random()*arrRockPaperScissors.length)];
 return randRockPaperScissors;
 }
 
-//determine the winner by comparing the player's selection with the computer's selection and return the 
+//determine the winner by comparing the player's selection with the computer's selection
 playRound = (playerSelection, computerSelection) => {
-    //gives a message of the results for each round
     roundResult = null;
 
     //draw
@@ -28,29 +42,29 @@ playRound = (playerSelection, computerSelection) => {
     }
     //player selects rock
     else if (playerSelection === "rock" && computerSelection === "paper") {
-        roundResult = `You lose this round! ${computerSelection} beats ${playerSelection}.`;
+        roundResult = `You lose this round! ${computerSelection}📄 beats ${playerSelection}🪨.`;
         return roundResult;
     }
     else if (playerSelection === "rock" && computerSelection === "scissors") {
-        roundResult = `You win this round! ${playerSelection} beats ${computerSelection}.`;
+        roundResult = `You win this round! ${playerSelection}🪨 beats ${computerSelection}✂️.`;
         return roundResult;
     }
     //player selects paper
     else if (playerSelection === "paper" && computerSelection === "rock") {
-        roundResult = `You win this round! ${playerSelection} beats ${computerSelection}.`;
+        roundResult = `You win this round! ${playerSelection}📄 beats ${computerSelection}🪨.`;
         return roundResult;
     }
     else if (playerSelection === "paper" && computerSelection === "scissors") {
-        roundResult = `You lose this round! ${computerSelection} beats ${playerSelection}.`;
+        roundResult = `You lose this round! ${computerSelection}✂️ beats ${playerSelection}📄.`;
         return roundResult;
     }
     //player selects scissors
     else if (playerSelection === "scissors" && computerSelection === "rock") {
-        roundResult = `You lose this round! ${computerSelection} beats ${playerSelection}.`;
+        roundResult = `You lose this round! ${computerSelection}🪨 beats ${playerSelection}✂️.`;
         return roundResult;
     }
     else if (playerSelection === "scissors" && computerSelection === "paper") {
-        roundResult = `You win this round! ${playerSelection} beats ${computerSelection}.`;
+        roundResult = `You win this round! ${playerSelection}✂️ beats ${computerSelection}📄.`;
         return roundResult;
     }
 }
@@ -62,20 +76,19 @@ game = () => {
     let roundDraws = 0;
     let gameWinner = null;
 
-    //calls playRound 5 times for a 5 round game.
+    //5 round game
     for (let roundCounter = 1; roundCounter < 6; roundCounter++) {
         console.log(`-- ROUND #${roundCounter} --`)
 
         playerSelection = getPlayerSelection();
         console.log(`You chose ${playerSelection}`);
 
-        //the "computer" is assigned the random rock paper scissors value through computerSelection, which is then logged to the console
         computerSelection = getComputerSelection();
         console.log(`The computer chose ${computerSelection}`);
 
         console.log(playRound(playerSelection, computerSelection));
 
-        //determining player or computer points for each round, based on what text the roundResult contains via include() method
+        //determining player or computer points for each round, based on what text the roundResult contains
         if (roundResult.includes("win")) {
             ++playerScore;
         } else if (roundResult.includes("lose")) {
@@ -83,7 +96,7 @@ game = () => {
         } else if (roundResult.includes("draw")) {
             ++roundDraws;
         }
-        //score is logged to the console after points logic applied for each round
+        //logs scores/stats to console after each round
         let scoreTally = `ROUND #${roundCounter} SCORE: PLAYER = ${playerScore} point(s) -- COMPUTER = ${computerScore} point(s)
                         \nDRAWS = ${roundDraws}
                         \n--------------`;
@@ -91,7 +104,7 @@ game = () => {
     
     }
 
-    //after all the rock paper scissors rounds have finished, determine game winner, and log final score to console
+    //after all the rock-paper-scissors rounds have finished, determine game winner and game stats
     let finalScoreTally = `PLAYER = ${playerScore} point(s) -- COMPUTER = ${computerScore} point(s)\nDRAWS = ${roundDraws}`;
 
     if (playerScore === computerScore) {
