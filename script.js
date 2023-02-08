@@ -43,6 +43,10 @@ let resultsContainer = document.createElement('div');
 document.body.appendChild(resultsContainer);
 resultsContainer.setAttribute('id', 'results-container');
 
+let roundCounterPara = document.createElement('p');
+document.getElementById('results-container').appendChild(roundCounterPara);
+roundCounterPara.setAttribute('id', 'roundCounterPara');
+
 let playerSelectPara = document.createElement('p');
 document.getElementById('results-container').appendChild(playerSelectPara);
 playerSelectPara.setAttribute('id', 'playerSelectPara');
@@ -74,117 +78,124 @@ getComputerSelection = () => {
     return randRockPaperScissors;
     }
 
-//EVENT LISTENERS - on each click, assign a player and computer selection and play a round
-btnRock.addEventListener('click', function() {
+//EVENT LISTENERS - on each click, assigns a player and computer selection and play a round
+playerRock = () => {
     let playerSelection = STR_ROCK;
     playerSelectPara.textContent = `You chose ${playerSelection}`;
     computerSelection = getComputerSelection();
     computerSelectPara.textContent = `The computer chose ${computerSelection}`;
     playRound(playerSelection, computerSelection);
-})
-
-btnPaper.addEventListener('click', function() {
-    let playerSelection = STR_PAPER;
+}
+playerPaper = () => {
+  let playerSelection = STR_PAPER;
     playerSelectPara.textContent = `You chose ${playerSelection}`;
     computerSelection = getComputerSelection();
     computerSelectPara.textContent = `The computer chose ${computerSelection}`;
-    playRound(playerSelection, computerSelection);
-})
-
-btnScissors.addEventListener('click', function() {
-    let playerSelection = STR_SCISSORS;
+    playRound(playerSelection, computerSelection)
+}
+playerScissors = () => {
+ let playerSelection = STR_SCISSORS;
     playerSelectPara.textContent = `You chose ${playerSelection}`;
     computerSelection = getComputerSelection();
     computerSelectPara.textContent = `The computer chose ${computerSelection}`;
-    playRound(playerSelection, computerSelection);
-})
+    playRound(playerSelection, computerSelection); 
+}
 
-//DETERMINE WINNER by comparing the player's selection with the computer's selection
+btnRock.addEventListener('click', playerRock);
+btnPaper.addEventListener('click', playerPaper);
+btnScissors.addEventListener('click', playerScissors);
+
+//GLOBAL VARS
+let roundCounter = 0;
+const SCORE_LIMIT = 5;
+let roundDraws = 0;
+let playerScore = 0;
+let computerScore = 0;
+
+//DETERMINE ROUND WINNER by comparing the player's selection with the computer's selection
 playRound = (playerSelection, computerSelection) => {
-    let roundResult = null;
-  
+    if ((playerScore < SCORE_LIMIT) && (computerScore < SCORE_LIMIT)) {
+         roundCounter++;
+    } else { 
+        game(); 
+    }
+
       //draw
       if (playerSelection === computerSelection) {
+        ++roundDraws;
           roundResult = `It's a draw.`;
           resultsPara.textContent = roundResult;
+          displayScore();
           return roundResult;
       }
       //player selects rock
       else if (playerSelection === STR_ROCK && computerSelection === STR_PAPER) {
-          roundResult = `You lose this round! ${computerSelection} beats ${playerSelection}.`;
+        ++computerScore;
+          roundResult = `Computer wins this round! ${computerSelection} beats ${playerSelection}.`;
           resultsPara.textContent = roundResult;
+          displayScore();
           return roundResult;
       }
       else if (playerSelection === STR_ROCK && computerSelection === STR_SCISSORS) {
+        ++playerScore;
           roundResult = `You win this round! ${playerSelection} beats ${computerSelection}.`;
           resultsPara.textContent = roundResult;
+          displayScore();
           return roundResult;
       }
       //player selects paper
       else if (playerSelection === STR_PAPER && computerSelection === STR_ROCK) {
+        ++playerScore;
           roundResult = `You win this round! ${playerSelection} beats ${computerSelection}.`;
           resultsPara.textContent = roundResult;
+          displayScore();
           return roundResult;
       }
       else if (playerSelection === STR_PAPER && computerSelection === STR_SCISSORS) {
-          roundResult = `You lose this round! ${computerSelection} beats ${playerSelection}.`;
+        ++computerScore;
+          roundResult = `Computer wins this round! ${computerSelection} beats ${playerSelection}.`;
           resultsPara.textContent = roundResult;
+          displayScore();
           return roundResult;
       }
       //player selects scissors
       else if (playerSelection === STR_SCISSORS && computerSelection === STR_ROCK) {
-          roundResult = `You lose this round! ${computerSelection} beats ${playerSelection}.`;
+        ++computerScore;
+          roundResult = `Computer wins this round! ${computerSelection} beats ${playerSelection}.`;
           resultsPara.textContent = roundResult;
+          displayScore();
           return roundResult;
       }
       else if (playerSelection === STR_SCISSORS && computerSelection === STR_PAPER) {
           roundResult = `You win this round! ${playerSelection} beats ${computerSelection}.`;
+          ++playerScore;
           resultsPara.textContent = roundResult;
+          displayScore();
           return roundResult;
       }
-
-      calculatePoints();
     }
-  
-  calculatePoints = () => {
-      //DETERMINING POINTS for each round, based on what text the roundResult contains
-      let playerScore = 0;
-      let computerScore = 0;
-      let roundDraws = 0;
-  
-           if (roundResult.includes("win")) {
-            ++playerScore;
-            playerScorePara.textContent = `Player score: ${playerScore}`;
-        } else if (roundResult.includes("lose")) {
-            ++computerScore;
-            computerScorePara.textContent = `Computer score: ${computerScore}`;
-        } else if (roundResult.includes("draw")) {
-            ++roundDraws;
-            roundDrawsPara.textContent = `# of draws: ${roundDraws}`;
-        }
-          }
-  
-  game = () => {
-    let gameWinner = null;
     
-        //logs scores/stats to console after each round
-        let scoreTally = `ROUND #${roundCounter} SCORE: PLAYER = ${playerScore} point(s) -- COMPUTER = ${computerScore} point(s)
-                        \nDRAWS = ${roundDraws}
-                        \n--------------`;
-        console.log(scoreTally);
-  
+displayScore = () => {
+    roundCounterPara.textContent = `ROUND #${roundCounter}`;
+    playerScorePara.textContent = `Player score: ${playerScore}`;
+    computerScorePara.textContent = `Computer score: ${computerScore}`;
+    roundDrawsPara.textContent = `# of draws: ${roundDraws}`;
+}
+         
+game = () => {
+    btnRock.removeEventListener('click', playerRock);
+    btnPaper.removeEventListener('click', playerPaper);
+    btnScissors.removeEventListener('click', playerScissors);
+
     //after all the rock-paper-scissors rounds have finished, determine game winner and game stats
-    let finalScoreTally = `PLAYER = ${playerScore} point(s) -- COMPUTER = ${computerScore} point(s)\nDRAWS = ${roundDraws}`;
+    let finalScoreTally = `# of ROUNDS ${roundCounter} PLAYER = ${playerScore} point(s)\nCOMPUTER = ${computerScore} point(s)\n# of DRAWS = ${roundDraws}`;
   
     if (playerScore === computerScore) {
-        console.log(`Game is a draw...\n -- FINAL SCORE -- \n${finalScoreTally}.`);
+        resultsContainer.textContent = `Game is a draw...\n -- FINAL SCORE -- \n${finalScoreTally}.`;
     }
     else if (playerScore > computerScore) {
-        gameWinner = console.log(`Player wins the game!\n FINAL SCORE: \n${finalScoreTally}`)
+        resultsContainer.textContent = `Player wins the game!\n FINAL SCORE: \n${finalScoreTally}`;
     } else if (playerScore < computerScore) {
-        gameWinner = console.log(`Computer wins the game!\n FINAL SCORE: \n${finalScoreTally}`)
-    }   
+        resultsContainer.textContent = `Computer wins the game!\n FINAL SCORE: \n${finalScoreTally}`;
+    } 
   }
-  
-  //actually calling the game function so the game runs
-  game();
