@@ -1,6 +1,6 @@
 # odin-rockpaperscissors
 
-## The classic game of rock, paper, scissors in your web browser's console!
-- Open your web browser's console by pressing the F12 key, or right-click > Inspect and switch to the 'Console' tab.
-- Choose rock, paper, or scissors each round, for 5 total rounds.
-- Each round, and at the game's end, see the game stats of round wins/losses and draws against your computer opponent.
+## The classic game of rock, paper, scissors in your browser!
+- Click the corresponding button to choose rock, paper, or scissors for that round. 
+- The round winner gets 1 point. A round ending in a draw / tie between the player and computer does not award any points.
+- The first one to reach 5 points wins the game!
