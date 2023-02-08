@@ -188,14 +188,14 @@ game = () => {
     btnScissors.removeEventListener('click', playerScissors);
 
     //after all the rock-paper-scissors rounds have finished, determine game winner and game stats
-    let finalScoreTally = `# of ROUNDS ${roundCounter} PLAYER = ${playerScore} point(s)\nCOMPUTER = ${computerScore} point(s)\n# of DRAWS = ${roundDraws}`;
+    let finalScoreTally = `# of ROUNDS = ${roundCounter}\r\nPLAYER = ${playerScore} point(s)\r\nCOMPUTER = ${computerScore} point(s)\r\n# of DRAWS = ${roundDraws}`;
   
     if (playerScore === computerScore) {
-        resultsContainer.textContent = `Game is a draw...\n -- FINAL SCORE -- \n${finalScoreTally}.`;
+        resultsContainer.textContent = `Game is a draw...\r\n\r\n-- FINAL SCORE --\r\n\r\n${finalScoreTally}.`;
     }
     else if (playerScore > computerScore) {
-        resultsContainer.textContent = `Player wins the game!\n FINAL SCORE: \n${finalScoreTally}`;
+        resultsContainer.textContent = `Player wins the game!\r\n\r\n-- FINAL SCORE --\r\n\r\n${finalScoreTally}`;
     } else if (playerScore < computerScore) {
-        resultsContainer.textContent = `Computer wins the game!\n FINAL SCORE: \n${finalScoreTally}`;
+        resultsContainer.textContent = `Computer wins the game!\r\n\r\n-- FINAL SCORE --\r\n\r\n${finalScoreTally}`;
     } 
   }

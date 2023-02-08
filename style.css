@@ -36,6 +36,7 @@ div#playerbuttons-container {
 
 div#results-container {
     display: flex;
+    white-space: pre-line; /*allows line breaks at newline characters like \r\n */
     flex-direction: column;
     margin: 0.5rem;
     justify-content: center;
