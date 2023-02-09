@@ -1,25 +1,32 @@
 * {
     box-sizing: border-box;
-    font-size: 1.5rem;
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 1.4rem;
 }
 
 html {
     display: flex;
+    
 }
 
 body {
     display: flex;
     flex-direction: column;
-    flex: 1 1 0;
+    flex: 1;
     height: 100%;
     width: 100%;
-    font-family: 'Arial', 'Helvetica', sans-serif;
+    background-image: url('./img/marjan-blan-marjanblan-qqz06qPB_F0-unsplash.jpg');
 }
 
 button {
     flex: 1 1 0;
+    opacity: 0.75;
     padding: 1rem;
+    outline: none;
 }
+    button:hover {
+        opacity: 1.0;
+    }
 
 #title {
     flex-direction: row;
@@ -41,7 +48,18 @@ div#results-container {
     margin: 0.5rem;
     justify-content: center;
 }
+    div#results-container > p {
+        margin: 0.5rem;
+    }
 
-div#results-container > p {
-    margin: 0.5rem;
+.attrib {
+    display: flex;
+    flex: 1 1 0;
+    color: #000;
+    justify-content: flex-end;
+}
+
+.attrib > p, a {
+    font-size: 0.8rem;
+    margin: 0;
 }
