@@ -11,65 +11,26 @@ const ARR_ROCK_PAPER_SCISSORS = [
 
 //PAGE ELEMENTS 
 let title = document.createElement('h1');
-document.body.appendChild(title);
-title.setAttribute('id', 'title');
-title.textContent = "Rock, Paper, Scissors!";
-
-//Player selection
 let playerButtonsContainer = document.createElement('div');
-document.body.appendChild(playerButtonsContainer);
-playerButtonsContainer.setAttribute('id', 'playerbuttons-container');
-
-//rock
 let btnRock = document.createElement('button');
-document.getElementById('playerbuttons-container').appendChild(btnRock);
-btnRock.setAttribute('id', 'rock');
-btnRock.textContent = STR_ROCK;
-
-//paper
 let btnPaper = document.createElement('button');
-document.getElementById('playerbuttons-container').appendChild(btnPaper);
-btnPaper.setAttribute('id', 'paper');
-btnPaper.textContent = STR_PAPER;
-
-//scissors
 let btnScissors = document.createElement('button');
-document.getElementById('playerbuttons-container').appendChild(btnScissors);
-btnScissors.setAttribute('id', 'scissors');
-btnScissors.textContent = STR_SCISSORS;
-
-//Displaying the results of each round. Note that the player and computer selection messages and win/loss messages are in separate p's 
 let resultsContainer = document.createElement('div');
-document.body.appendChild(resultsContainer);
-resultsContainer.setAttribute('id', 'results-container');
-
 let roundCounterPara = document.createElement('p');
-document.getElementById('results-container').appendChild(roundCounterPara);
-roundCounterPara.setAttribute('id', 'roundCounterPara');
-
 let playerSelectPara = document.createElement('p');
-document.getElementById('results-container').appendChild(playerSelectPara);
-playerSelectPara.setAttribute('id', 'playerSelectPara');
-
 let computerSelectPara = document.createElement('p');
-document.getElementById('results-container').appendChild(computerSelectPara);
-computerSelectPara.setAttribute('id', 'computerSelectPara');
-
 let resultsPara = document.createElement('p');
-document.getElementById('results-container').appendChild(resultsPara);
-playerSelectPara.setAttribute('id', 'resultsPara');
-
-let playerScorePara = document.createElement('p');
-document.getElementById('results-container').appendChild(playerScorePara);
-playerScorePara.setAttribute('id', 'playerScorePara');
-
-let computerScorePara = document.createElement('p');
-document.getElementById('results-container').appendChild(computerScorePara);
-computerScorePara.setAttribute('id', 'computerScorePara');
-
+let playerWinsPara = document.createElement('p');
+let computerWinsPara = document.createElement('p');
 let roundDrawsPara = document.createElement('p');
-document.getElementById('results-container').appendChild(roundDrawsPara);
-roundDrawsPara.setAttribute('id', 'roundDrawsPara');
+let btnResetGame = document.createElement('button');
+
+//GLOBAL VARS
+let roundCounter = 1;
+const WINS_LIMIT = 5;
+let roundDraws = 0;
+let playerWins = 0;
+let computerWins = 0;
 
 //COMPUTER SELECTION
 getComputerSelection = () => {
@@ -78,7 +39,7 @@ getComputerSelection = () => {
     return randRockPaperScissors;
     }
 
-//EVENT LISTENERS - on each click, assigns a player and computer selection and play a round
+//EVENT LISTENERS - on each click, assigns a player and computer selection
 playerRock = () => {
     let playerSelection = STR_ROCK;
     playerSelectPara.textContent = `You chose ${playerSelection}`;
@@ -101,101 +62,171 @@ playerScissors = () => {
     playRound(playerSelection, computerSelection); 
 }
 
-btnRock.addEventListener('click', playerRock);
-btnPaper.addEventListener('click', playerPaper);
-btnScissors.addEventListener('click', playerScissors);
+//UPDATING TEXT
+clearScoreText = () => {
+  roundCounterPara.textContent = ``;
+  playerSelectPara.textContent = ``;
+  computerSelectPara.textContent = ``;
+  resultsPara.textContent = ``;
+  playerWinsPara.textContent = ``;
+  computerWinsPara.textContent = ``;
+  roundDrawsPara.textContent = ``;
+}
+updateScoreText = () => {
+      roundCounterPara.textContent = `ROUND #${roundCounter}`;
+      playerWinsPara.textContent = `Player Wins: ${playerWins}`;
+      computerWinsPara.textContent = `Computer Wins: ${computerWins}`;
+      roundDrawsPara.textContent = `# of draws: ${roundDraws}`;
+}
 
-//GLOBAL VARS
-let roundCounter = 0;
-const SCORE_LIMIT = 5;
-let roundDraws = 0;
-let playerScore = 0;
-let computerScore = 0;
+//GAME INITIALIZATION
+addResetButton = () => {
+  document.getElementById('roundDrawsPara').appendChild(btnResetGame);
+  btnResetGame.setAttribute('id', 'btnResetgame');
+  btnResetGame.textContent = `play again?`;
+  btnResetGame.addEventListener('click', initGame);
+  resetCreated = true;
+}      
+initGame = () => {
+document.body.appendChild(title);
+title.setAttribute('id', 'title');
+title.textContent = "Rock, Paper, Scissors!";
+
+//Player selection
+document.body.appendChild(playerButtonsContainer);
+playerButtonsContainer.setAttribute('id', 'playerbuttons-container');
+
+//rock
+document.getElementById('playerbuttons-container').appendChild(btnRock);
+btnRock.setAttribute('id', 'rock');
+btnRock.textContent = STR_ROCK;
+
+//paper
+document.getElementById('playerbuttons-container').appendChild(btnPaper);
+btnPaper.setAttribute('id', 'paper');
+btnPaper.textContent = STR_PAPER;
+
+//scissors
+document.getElementById('playerbuttons-container').appendChild(btnScissors);
+btnScissors.setAttribute('id', 'scissors');
+btnScissors.textContent = STR_SCISSORS;
+
+//Displaying the results of each round
+document.body.appendChild(resultsContainer);
+resultsContainer.setAttribute('id', 'results-container');
+
+document.getElementById('results-container').appendChild(roundCounterPara);
+roundCounterPara.setAttribute('id', 'roundCounterPara');
+
+document.getElementById('results-container').appendChild(playerSelectPara);
+playerSelectPara.setAttribute('id', 'playerSelectPara');
+
+document.getElementById('results-container').appendChild(computerSelectPara);
+computerSelectPara.setAttribute('id', 'computerSelectPara');
+
+document.getElementById('results-container').appendChild(resultsPara);
+resultsPara.setAttribute('id', 'resultsPara');
+
+document.getElementById('results-container').appendChild(playerWinsPara);
+playerWinsPara.setAttribute('id', 'playerWinsPara');
+
+document.getElementById('results-container').appendChild(computerWinsPara);
+computerWinsPara.setAttribute('id', 'computerWinsPara');
+
+document.getElementById('results-container').appendChild(roundDrawsPara);
+roundDrawsPara.setAttribute('id', 'roundDrawsPara');
+
+  btnResetGame.remove();
+  roundCounter = 0;
+  roundDraws = 0;
+  playerWins = 0;
+  computerWins = 0;
+  
+    clearScoreText();
+
+    btnRock.addEventListener('click', playerRock);
+    btnPaper.addEventListener('click', playerPaper);
+    btnScissors.addEventListener('click', playerScissors);
+}
+  
+initGame();
 
 //DETERMINE ROUND WINNER by comparing the player's selection with the computer's selection
 playRound = (playerSelection, computerSelection) => {
-    if ((playerScore < SCORE_LIMIT) && (computerScore < SCORE_LIMIT)) {
-         roundCounter++;
-    } else { 
-        game(); 
-    }
-
+  checkWinner = () => {
+    if ((playerWins < WINS_LIMIT) && (computerWins < WINS_LIMIT)) {
+    roundCounter++;
+  } else { 
+   game(); 
+  }
+}
       //draw
       if (playerSelection === computerSelection) {
-        ++roundDraws;
-          roundResult = `It's a draw.`;
-          resultsPara.textContent = roundResult;
-          displayScore();
-          return roundResult;
+          resultsPara.textContent = `It's a draw.`;
+          roundDraws++;
+          updateScoreText();
+          checkWinner();
       }
       //player selects rock
       else if (playerSelection === STR_ROCK && computerSelection === STR_PAPER) {
-        ++computerScore;
-          roundResult = `Computer wins this round! ${computerSelection} beats ${playerSelection}.`;
-          resultsPara.textContent = roundResult;
-          displayScore();
-          return roundResult;
+          resultsPara.textContent = `Computer wins this round! ${computerSelection} beats ${playerSelection}.`;
+          computerWins++;
+          updateScoreText();
+          checkWinner();
       }
       else if (playerSelection === STR_ROCK && computerSelection === STR_SCISSORS) {
-        ++playerScore;
-          roundResult = `You win this round! ${playerSelection} beats ${computerSelection}.`;
-          resultsPara.textContent = roundResult;
-          displayScore();
-          return roundResult;
+          resultsPara.textContent = `You win this round! ${playerSelection} beats ${computerSelection}.`;
+          playerWins++;
+          updateScoreText();
+          checkWinner();
       }
       //player selects paper
       else if (playerSelection === STR_PAPER && computerSelection === STR_ROCK) {
-        ++playerScore;
-          roundResult = `You win this round! ${playerSelection} beats ${computerSelection}.`;
-          resultsPara.textContent = roundResult;
-          displayScore();
-          return roundResult;
+          resultsPara.textContent = `You win this round! ${playerSelection} beats ${computerSelection}.`;
+          playerWins++;
+          updateScoreText();
+          checkWinner();
       }
       else if (playerSelection === STR_PAPER && computerSelection === STR_SCISSORS) {
-        ++computerScore;
-          roundResult = `Computer wins this round! ${computerSelection} beats ${playerSelection}.`;
-          resultsPara.textContent = roundResult;
-          displayScore();
-          return roundResult;
+          resultsPara.textContent = `Computer wins this round! ${computerSelection} beats ${playerSelection}.`;
+          computerWins++;
+          updateScoreText();
+          checkWinner();
       }
       //player selects scissors
       else if (playerSelection === STR_SCISSORS && computerSelection === STR_ROCK) {
-        ++computerScore;
-          roundResult = `Computer wins this round! ${computerSelection} beats ${playerSelection}.`;
-          resultsPara.textContent = roundResult;
-          displayScore();
-          return roundResult;
+        resultsPara.textContent = `Computer wins this round! ${computerSelection} beats ${playerSelection}.`;
+         computerWins++;
+         updateScoreText();
+         checkWinner();
       }
       else if (playerSelection === STR_SCISSORS && computerSelection === STR_PAPER) {
-          roundResult = `You win this round! ${playerSelection} beats ${computerSelection}.`;
-          ++playerScore;
-          resultsPara.textContent = roundResult;
-          displayScore();
-          return roundResult;
+          resultsPara.textContent`You win this round! ${playerSelection} beats ${computerSelection}.`;
+          playerWins++;
+          updateScoreText();
+          checkWinner();
       }
     }
-    
-displayScore = () => {
-    roundCounterPara.textContent = `ROUND #${roundCounter}`;
-    playerScorePara.textContent = `Player score: ${playerScore}`;
-    computerScorePara.textContent = `Computer score: ${computerScore}`;
-    roundDrawsPara.textContent = `# of draws: ${roundDraws}`;
-}
-         
+
 game = () => {
     btnRock.removeEventListener('click', playerRock);
     btnPaper.removeEventListener('click', playerPaper);
     btnScissors.removeEventListener('click', playerScissors);
 
     //after all the rock-paper-scissors rounds have finished, determine game winner and game stats
-    let finalScoreTally = `# of ROUNDS = ${roundCounter}\r\nPLAYER = ${playerScore} point(s)\r\nCOMPUTER = ${computerScore} point(s)\r\n# of DRAWS = ${roundDraws}`;
+    let finalWinsTally = `# of ROUNDS = ${roundCounter}\r\nPLAYER = ${playerWins} point(s)\r\nCOMPUTER = ${computerWins} point(s)\r\n# of DRAWS = ${roundDraws}`;
   
-    if (playerScore === computerScore) {
-        resultsContainer.textContent = `Game is a draw...\r\n\r\n-- FINAL SCORE --\r\n\r\n${finalScoreTally}.`;
+    if (playerWins === computerWins) {
+        clearScoreText();
+        resultsPara.textContent = `Game is a draw...\r\n\r\n-- FINAL SCORE --\r\n\r\n${finalWinsTally}.`;
     }
-    else if (playerScore > computerScore) {
-        resultsContainer.textContent = `Player wins the game!\r\n\r\n-- FINAL SCORE --\r\n\r\n${finalScoreTally}`;
-    } else if (playerScore < computerScore) {
-        resultsContainer.textContent = `Computer wins the game!\r\n\r\n-- FINAL SCORE --\r\n\r\n${finalScoreTally}`;
+    else if (playerWins > computerWins) {
+        clearScoreText();
+        resultsPara.textContent = `Player wins the game!\r\n\r\n-- FINAL SCORE --\r\n\r\n${finalWinsTally}`;
+    } else if (playerWins < computerWins) {
+        clearScoreText();
+        resultsPara.textContent = `Computer wins the game!\r\n\r\n-- FINAL SCORE --\r\n\r\n${finalWinsTally}`;
     } 
-  }
+
+      addResetButton();
+}

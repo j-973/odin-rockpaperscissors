@@ -52,14 +52,14 @@ div#results-container {
         margin: 0.5rem;
     }
 
-.attrib {
+#attrib {
     display: flex;
     flex: 1 1 0;
     color: #000;
     justify-content: flex-end;
 }
 
-.attrib > p, a {
+#attrib > p, a {
     font-size: 0.8rem;
     margin: 0;
 }
