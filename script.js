@@ -137,7 +137,7 @@ document.getElementById('results-container').appendChild(roundDrawsPara);
 roundDrawsPara.setAttribute('id', 'roundDrawsPara');
 
   btnResetGame.remove();
-  roundCounter = 0;
+  roundCounter = 1;
   roundDraws = 0;
   playerWins = 0;
   computerWins = 0;
@@ -152,7 +152,7 @@ roundDrawsPara.setAttribute('id', 'roundDrawsPara');
 initGame();
 
 //DETERMINE ROUND WINNER by comparing the player's selection with the computer's selection
-playRound = (playerSelection, computerSelection) => {
+playRound = (playerSelection, computerSelection) => {  
   checkWinner = () => {
     if ((playerWins < WINS_LIMIT) && (computerWins < WINS_LIMIT)) {
     roundCounter++;
@@ -218,14 +218,14 @@ game = () => {
   
     if (playerWins === computerWins) {
         clearScoreText();
-        resultsPara.textContent = `Game is a draw...\r\n\r\n-- FINAL SCORE --\r\n\r\n${finalWinsTally}.`;
+        resultsPara.textContent = `Game is a draw...\r\n\r\n-- FINAL SCORE --\r\n${finalWinsTally}.`;
     }
     else if (playerWins > computerWins) {
         clearScoreText();
-        resultsPara.textContent = `Player wins the game!\r\n\r\n-- FINAL SCORE --\r\n\r\n${finalWinsTally}`;
+        resultsPara.textContent = `Player wins the game!\r\n\r\n-- FINAL SCORE --\r\n${finalWinsTally}`;
     } else if (playerWins < computerWins) {
         clearScoreText();
-        resultsPara.textContent = `Computer wins the game!\r\n\r\n-- FINAL SCORE --\r\n\r\n${finalWinsTally}`;
+        resultsPara.textContent = `Computer wins the game!\r\n\r\n-- FINAL SCORE --\r\n${finalWinsTally}`;
     } 
 
       addResetButton();
